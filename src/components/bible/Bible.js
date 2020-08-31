@@ -37,7 +37,7 @@ export const Bible = () => {
     >
       <Typography variant="h5">
         {result.display.static}{" "}
-        <Typography variant="subtitle1" color="secondary">
+        <Typography variant="subtitle1" color="textSecondary">
           {result.display.date}
         </Typography>
       </Typography>
