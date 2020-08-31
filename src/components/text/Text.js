@@ -21,7 +21,7 @@ export const Text = (props) => {
   return (
     <Card variant="outlined">
       <CardContent>
-        <Typography className="orange" variant="h4">
+        <Typography className="orange" variant="h5">
           {text.book}
         </Typography>
         <div>
@@ -29,7 +29,7 @@ export const Text = (props) => {
             return (
               <div>
                 <div className="chapterSpacer">
-                  <Typography className="orange" variant="h5">
+                  <Typography className="orange" variant="h6">
                     Capitolul {chapter.number}
                   </Typography>
                 </div>
@@ -45,7 +45,7 @@ export const Text = (props) => {
                       {chapter.verses.map((verse) => {
                         return (
                           <TableRow key={getVerseKey(verse)}>
-                            <TableCell>{verse.number}</TableCell>
+                            <TableCell width={10}>{verse.number}</TableCell>
                             <TableCell>{verse.verse}</TableCell>
                           </TableRow>
                         );
