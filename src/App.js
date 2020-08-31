@@ -1,12 +1,16 @@
 import React from "react";
+import { Container } from "@material-ui/core";
+
+import { Bible } from "./components/Bible";
+
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header>
-        <h1> Pasajul Zilei </h1>
-      </header>
+      <Container maxWidth="lg">
+        <Bible />
+      </Container>
     </div>
   );
 }
