@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { Container, Typography, Link, Paper } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import * as serviceWorker from "./serviceWorker";
 import "fontsource-roboto";

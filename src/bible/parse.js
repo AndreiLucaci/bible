@@ -48,8 +48,6 @@ const parseChapterVerse = (input) => {
   }
   bres.chapters.push(createChapter(parseInt(ichapter), verses));
 
-  console.log(bres);
-
   return bres;
 };
 
@@ -76,8 +74,6 @@ const parseWholeChapter = (input) => {
   const [_, book, pChapter] = input.split(testWholeChapter);
   const bbook = getBook(book);
 
-  console.log("whole chapter");
-
   const bres = bibleResponse(bbook.nume, [
     createChapter(
       parseInt(pChapter),
@@ -92,29 +88,22 @@ const parseWholeChapter = (input) => {
 
 const parseText = (input) => {
   const trimmedInput = input.trim();
-  console.log(trimmedInput);
 
   if (testChapterRange.test(trimmedInput)) {
-    console.log("parsing chapter rnage");
     return parseChapterRange(trimmedInput);
   }
 
   if (testChapterVerse.test(trimmedInput)) {
-    console.log("parsing chapter verse");
     return parseChapterVerse(trimmedInput);
   }
 
   if (testWholeChapter.test(trimmedInput)) {
-    console.log("parsing whole chapter");
     return parseWholeChapter(trimmedInput);
   }
 
   if (testWholeBook.test(trimmedInput)) {
-    console.log("parsing whole book");
     return parseWholeBook(trimmedInput);
   }
-
-  console.log("parsing failed for: ", input);
 };
 
 const parse = (input) => {
