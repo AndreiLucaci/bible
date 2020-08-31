@@ -11,19 +11,19 @@ export const Bible = () => {
 
   return (
     <div className="bible" style={{ position: "relative", top: 20 }}>
-      <Typography variant="h4">
+      <Typography variant="h5">
         {result.display.static}{" "}
         <span className="orange">{result.display.date}</span>
       </Typography>
-      <Typography variant="h4"> {result.forToday}</Typography>
+      <Typography variant="h6"> {result.forToday}</Typography>
       <div style={{ marginTop: 20, marginBottom: 10 }}>
-        <Typography className="textHeader" variant="h4">
+        <Typography className="textHeader" variant="h5">
           Vechiul Testament
         </Typography>
         <Text text={oldT} />
       </div>
       <div style={{ marginTop: 20, marginBottom: 10 }}>
-        <Typography className="textHeader" variant="h4">
+        <Typography className="textHeader" variant="h5">
           Noul Testament
         </Typography>
         <Text text={newT} />
