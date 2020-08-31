@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "@material-ui/core";
 
-import { Bible } from "./components/Bible";
+import { Bible } from "./components/bible/Bible";
 
 import "./App.css";
 

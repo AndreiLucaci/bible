@@ -1,0 +1,1 @@
+export { Bible } from "./Bible";

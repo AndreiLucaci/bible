@@ -7,6 +7,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+import "./Text.css";
+
 export const Text = (props) => {
   const { text } = props;
 
@@ -15,12 +17,12 @@ export const Text = (props) => {
   };
   return (
     <div>
-      <h4>{text.book}</h4>
+      <h4 className="textHeaderPart">{text.book}</h4>
       <div>
         {text.chapters.map((chapter) => {
           return (
             <div>
-              <h5>Capitolul {chapter.number}</h5>
+              <h5 className="textHeaderPart">Capitolul {chapter.number}</h5>
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                   <TableHead>
