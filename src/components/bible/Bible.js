@@ -1,10 +1,18 @@
 import "date-fns";
 import React, { useState, useEffect } from "react";
-import { Typography, Paper } from "@material-ui/core/";
+import {
+  Typography,
+  Paper,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Container,
+} from "@material-ui/core/";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DateFnsUtils from "@date-io/date-fns";
 
 import { Text } from "../text/Text";
@@ -35,44 +43,90 @@ export const Bible = () => {
       variant="elevation"
       elevation={0}
     >
-      <Typography variant="h5">
-        {result.display.static}{" "}
-        <Typography variant="subtitle1" color="textSecondary">
-          {result.display.date}
-        </Typography>
-      </Typography>
-      <Typography variant="h6"> {result.forToday}</Typography>
-
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
-          disableToolbar
-          color="#121212"
-          variant="inline"
-          style={{ color: "#FFF" }}
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          label="Alege alta zi"
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            "aria-label": "Alege alta zi",
-          }}
-        />
-      </MuiPickersUtilsProvider>
-
-      <div style={{ marginTop: 20, marginBottom: 10 }}>
-        <Typography className="textHeader" variant="h5">
-          Vechiul Testament
-        </Typography>
-        <Text text={oldT} />
-      </div>
-      <div style={{ marginTop: 20, marginBottom: 10 }}>
-        <Typography className="textHeader" variant="h5">
-          Noul Testament
-        </Typography>
-        <Text text={newT} />
-      </div>
+      <Accordion style={{ textAlign: "center" }} elevation={0}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          centerRipple={true}
+          style={{ textAlign: "center" }}
+          id="panel1a-header"
+        >
+          <Container style={{ marginLeft: 35 }}>
+            <Typography variant="h5">
+              {result.display.static}{" "}
+              <Typography variant="subtitle1" color="textSecondary">
+                {result.display.date}
+              </Typography>
+            </Typography>
+            <Typography variant="h6"> {result.forToday}</Typography>
+          </Container>
+        </AccordionSummary>
+        <AccordionDetails style={{ textAlign: "center" }}>
+          <Container>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                color="#121212"
+                variant="inline"
+                style={{ color: "#FFF" }}
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Alege alta zi"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "Alege alta zi",
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </Container>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion style={{ textAlign: "center" }} elevation={0}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          centerRipple={true}
+          style={{ textAlign: "center" }}
+          id="panel1a-header"
+        >
+          <Container>
+            <div style={{ marginTop: 20, marginBottom: 10, marginLeft: 35 }}>
+              <Typography className="textHeader" variant="h5">
+                Vechiul Testament
+              </Typography>
+            </div>
+          </Container>
+        </AccordionSummary>
+        <AccordionDetails style={{ textAlign: "center" }}>
+          <Container>
+            <Text text={oldT} />
+          </Container>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion style={{ textAlign: "center" }} elevation={0}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          centerRipple={true}
+          style={{ textAlign: "center" }}
+          id="panel1a-header"
+        >
+          <Container>
+            <div style={{ marginTop: 20, marginBottom: 10, marginLeft: 35 }}>
+              <Typography className="textHeader" variant="h5">
+                Noul Testament
+              </Typography>
+            </div>
+          </Container>
+        </AccordionSummary>
+        <AccordionDetails style={{ textAlign: "center" }}>
+          <Container>
+            <Text text={newT} />
+          </Container>
+        </AccordionDetails>
+      </Accordion>
     </Paper>
   );
 };
