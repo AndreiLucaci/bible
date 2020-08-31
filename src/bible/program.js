@@ -227,7 +227,7 @@ const jsn = {
     31: "Psalmii 54-56; Romani 3",
   },
   8: {
-    1: "Psalmii 57-59; Romani 4 ",
+    1: "Psalmii 57-59; Romani 4",
     2: "Psalmii 60-62; Romani 5",
     3: "Psalmii 63-65; Romani 6",
     4: "Psalmii 66-67; Romani 7",
@@ -415,8 +415,8 @@ const fday = {
   6: "Sambata",
 };
 
-export const passage = () => {
-  const currentDate = new Date();
+export const passage = (date = undefined) => {
+  const currentDate = date || new Date();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
   const wday = currentDate.getDay();

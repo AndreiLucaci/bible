@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import _ from "lodash";
 
 import "./Text.css";
 
@@ -18,8 +19,10 @@ export const Text = (props) => {
   const getVerseKey = (verse) => {
     return `${verse.number}${verse.verse.slice(0, 15)}`;
   };
-  return (
-    <Card variant="outlined">
+  return _.isEmpty(text) ? (
+    <></>
+  ) : (
+    <Card elevation={0}>
       <CardContent>
         <Typography className="orange" variant="h5">
           {text.book}
@@ -33,7 +36,7 @@ export const Text = (props) => {
                     Capitolul {chapter.number}
                   </Typography>
                 </div>
-                <TableContainer component={Paper}>
+                <TableContainer component={Card} elevation={0}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>

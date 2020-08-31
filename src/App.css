@@ -21,17 +21,25 @@
 #f6f6f6	(246,246,246)
 #f1802d	(241,128,45)
 
+#2a312a
+#28382b
+#455b46
+#f4900e
+#f7631c
+#ed5005
+
+
 */
 
 .App-header {
-  background-color: #123740;
+  background-color: #f1802d;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #f6f6f6;
+  color: #123740;
 }
 
 .App-link {

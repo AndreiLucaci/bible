@@ -2,13 +2,38 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { Container, Typography, Link, Paper } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import * as serviceWorker from "./serviceWorker";
 import "fontsource-roboto";
 
+const theme = createMuiTheme({
+  palette: {
+    background: {
+      paper: "#2a312a",
+    },
+    primary: {
+      main: "#f4900e",
+      contrastText: "#28382b",
+    },
+    text: {
+      primary: "#f6f6f6",
+      secondary: "#f1802d",
+      dark: "#123740",
+    },
+  },
+});
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+    <Container maxWidth="lg">
+      <div className="App">
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </div>
+    </Container>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 

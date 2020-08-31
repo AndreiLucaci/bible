@@ -1,17 +1,17 @@
 import map from "./mapper";
 import bible from "./bible.json";
 
-const testChapterRange = /^([1-4a-zA-Z-]+?) (\d+)-(\d+)$/gm;
-const testChapterVerse = /^([1-4a-zA-Z-]+?) (\d+):(\d+)-(\d+)$/gm;
-const testWholeChapter = /^([1-4a-zA-Z-]+) (\d+)$/gm;
-const testWholeBook = /^([1-4a-zA-Z-]+)$/gm;
+const testChapterRange = new RegExp(/^([1-4a-zA-Z-]+?) (\d+)-(\d+)$/m);
+const testChapterVerse = new RegExp(/^([1-4a-zA-Z-]+?) (\d+):(\d+)-(\d+)$/m);
+const testWholeChapter = new RegExp(/^([1-4a-zA-Z-]+) (\d+)$/m);
+const testWholeBook = new RegExp(/^([1-4a-zA-Z-]+)$/m);
 
 const bibleResponse = (book, chapters) => ({ book, chapters });
-const chapter = (nr, verses) => ({
+const createChapter = (nr, verses) => ({
   number: nr,
   verses,
 });
-const verse = (nr, verse) => ({ number: nr, verse });
+const createVerse = (nr, verse) => ({ number: nr, verse });
 
 const getBook = (abbrev) => {
   const abbrevB = map(abbrev);
@@ -25,10 +25,10 @@ const parseChapterRange = (input) => {
   const bres = bibleResponse(bbook.nume, []);
   for (let i = parseInt(start) - 1; i <= parseInt(end) - 1; i++) {
     bres.chapters.push(
-      chapter(
+      createChapter(
         i + 1,
         bbook.capitole[i].map((v, i) => {
-          return verse(i + 1, v);
+          return createVerse(i + 1, v);
         })
       )
     );
@@ -44,9 +44,11 @@ const parseChapterVerse = (input) => {
   const bchapter = bbook.capitole[parseInt(ichapter) - 1];
   const verses = [];
   for (let i = parseInt(start) - 1; i <= parseInt(end) - 1; i++) {
-    verses.push(verse(i + 1, bchapter[i]));
+    verses.push(createVerse(i + 1, bchapter[i]));
   }
-  bres.chapters.push(chapter(parseInt(ichapter), verses));
+  bres.chapters.push(createChapter(parseInt(ichapter), verses));
+
+  console.log(bres);
 
   return bres;
 };
@@ -58,10 +60,10 @@ const parseWholeBook = (input) => {
   const bres = bibleResponse(
     bbook.nume,
     bbook.capitole.map((x, i) => {
-      return chapter(
+      return createChapter(
         i + 1,
         x.map((y, j) => {
-          return verse(j + 1, y);
+          return createVerse(j + 1, y);
         })
       );
     })
@@ -71,17 +73,17 @@ const parseWholeBook = (input) => {
 };
 
 const parseWholeChapter = (input) => {
-  const [_, book, chapter] = input.split(testWholeChapter);
+  const [_, book, pChapter] = input.split(testWholeChapter);
   const bbook = getBook(book);
 
+  console.log("whole chapter");
+
   const bres = bibleResponse(bbook.nume, [
-    chapter(
-      parseInt(chapter),
-      bbook.capitole[
-        parseInt(chapter).map((x, i) => {
-          return verse(i + 1, x);
-        })
-      ]
+    createChapter(
+      parseInt(pChapter),
+      bbook.capitole[parseInt(pChapter) - 1].map((x, i) => {
+        return createVerse(i + 1, x);
+      })
     ),
   ]);
 
@@ -89,31 +91,41 @@ const parseWholeChapter = (input) => {
 };
 
 const parseText = (input) => {
-  if (testChapterRange.test(input)) {
-    return parseChapterRange(input);
+  const trimmedInput = input.trim();
+  console.log(trimmedInput);
+
+  if (testChapterRange.test(trimmedInput)) {
+    console.log("parsing chapter rnage");
+    return parseChapterRange(trimmedInput);
   }
 
-  if (testChapterVerse.test(input)) {
-    return parseChapterVerse(input);
+  if (testChapterVerse.test(trimmedInput)) {
+    console.log("parsing chapter verse");
+    return parseChapterVerse(trimmedInput);
   }
 
-  if (testWholeChapter.test(input)) {
-    return parseWholeChapter(input);
+  if (testWholeChapter.test(trimmedInput)) {
+    console.log("parsing whole chapter");
+    return parseWholeChapter(trimmedInput);
   }
 
-  if (testWholeBook.test(input)) {
-    return parseWholeBook(input);
+  if (testWholeBook.test(trimmedInput)) {
+    console.log("parsing whole book");
+    return parseWholeBook(trimmedInput);
   }
+
+  console.log("parsing failed for: ", input);
 };
 
 const parse = (input) => {
   const [oldT, newT] = input.split(";").map((x) => x.trim());
 
-  console.log(newT);
+  const parsedOldT = parseText(oldT);
+  const parsedNewT = parseText(newT);
 
   return {
-    oldT: parseText(oldT),
-    newT: parseText(newT),
+    oldT: parsedOldT,
+    newT: parsedNewT,
   };
 };
 
