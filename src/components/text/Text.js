@@ -36,10 +36,10 @@ export const Text = (props) => {
                   </Typography>
                 </div>
                 <TableContainer component={Card} elevation={0}>
-                  <Table aria-label="simple table">
+                  <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Numar</TableCell>
+                        <TableCell>Nr</TableCell>
                         <TableCell>Verset</TableCell>
                       </TableRow>
                     </TableHead>

@@ -39,7 +39,7 @@ export const Bible = () => {
   return (
     <Paper
       className="bible"
-      style={{ position: "relative", top: 20 }}
+      style={{ position: "relative" }}
       variant="elevation"
       elevation={0}
     >
