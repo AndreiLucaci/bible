@@ -1,5 +1,5 @@
 import map from "./mapper";
-import bible from "./bible.json";
+import bible from "./bible-newVDC.json";
 
 const testChapterRange = new RegExp(/^([1-4a-zA-Z-]+?) (\d+)-(\d+)$/m);
 const testChapterVerse = new RegExp(/^([1-4a-zA-Z-]+?) (\d+):(\d+)-(\d+)$/m);
