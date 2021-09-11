@@ -56,7 +56,7 @@
 }
 
 .footer-down {
-  position: fixed;
+  position: relative;
   min-width: 65vw;
   display: flex;
   justify-content: center;
