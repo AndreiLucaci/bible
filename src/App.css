@@ -54,3 +54,17 @@
     transform: rotate(360deg);
   }
 }
+
+.footer-down {
+  position: fixed;
+  min-width: 65vw;
+  display: flex;
+  justify-content: center;
+  bottom: 0px; 
+}
+
+@media (pointer:none), (pointer:coarse) {
+  .footer-down {
+    min-width: 100vw;
+  }
+}

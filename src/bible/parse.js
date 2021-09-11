@@ -20,7 +20,7 @@ const getBook = (abbrev) => {
 };
 
 const parseChapterRange = (input) => {
-  const [_, book, start, end] = input.split(testChapterRange);
+  const [, book, start, end] = input.split(testChapterRange);
   const bbook = getBook(book);
   const bres = bibleResponse(bbook.nume, []);
   for (let i = parseInt(start) - 1; i <= parseInt(end) - 1; i++) {
