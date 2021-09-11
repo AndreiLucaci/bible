@@ -38,7 +38,7 @@ const parseChapterRange = (input) => {
 };
 
 const parseChapterVerse = (input) => {
-  const [_, book, ichapter, start, end] = input.split(testChapterVerse);
+  const [, book, ichapter, start, end] = input.split(testChapterVerse);
   const bbook = getBook(book);
   const bres = bibleResponse(bbook.nume, []);
   const bchapter = bbook.capitole[parseInt(ichapter) - 1];
@@ -52,7 +52,7 @@ const parseChapterVerse = (input) => {
 };
 
 const parseWholeBook = (input) => {
-  const [_, book] = input.split(testWholeBook);
+  const [, book] = input.split(testWholeBook);
   const bbook = getBook(book);
 
   const bres = bibleResponse(
@@ -71,7 +71,7 @@ const parseWholeBook = (input) => {
 };
 
 const parseWholeChapter = (input) => {
-  const [_, book, pChapter] = input.split(testWholeChapter);
+  const [, book, pChapter] = input.split(testWholeChapter);
   const bbook = getBook(book);
 
   const bres = bibleResponse(bbook.nume, [
