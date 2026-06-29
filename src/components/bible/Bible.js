@@ -1,28 +1,20 @@
 import "date-fns";
-import React, { useState, useEffect } from "react";
-import {
-  Typography,
-  Paper,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Container,
-} from "@material-ui/core/";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import DateFnsUtils from "@date-io/date-fns";
-
-import { Text } from "../text/Text";
-import { getText } from "../../bible";
 import "./Bible.css";
+
+import { Accordion, AccordionDetails, AccordionSummary, Container, Paper, Typography } from "@material-ui/core/";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import React, { useEffect, useState } from "react";
+
+import DateFnsUtils from "@date-io/date-fns";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { Text } from "../text/Text";
+import { createRequestUrls } from "../../api";
+import { getText } from "../../bible";
 
 export const Bible = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [oldT, setOldT] = useState({});
-  const [newT, setNewT] = useState({});
+  const [oldT, setOldTestamentPassage] = useState({});
+  const [newT, setNewTestamentPassage] = useState({});
   const [result, setResult] = useState({ display: {} });
 
   const handleDateChange = (val) => {
@@ -30,19 +22,15 @@ export const Bible = () => {
   };
 
   useEffect(() => {
-    const pResult = getText(selectedDate);
-    setResult(pResult);
-    setOldT(pResult.text.oldT);
-    setNewT(pResult.text.newT);
+    const passageResult = getText(selectedDate);
+    createRequestUrls(selectedDate);
+    setResult(passageResult);
+    setOldTestamentPassage(passageResult.text.oldTestament);
+    setNewTestamentPassage(passageResult.text.newTestament);
   }, [selectedDate]);
 
   return (
-    <Paper
-      className="bible"
-      style={{ position: "relative" }}
-      variant="elevation"
-      elevation={0}
-    >
+    <Paper className="bible" style={{ position: "relative" }} variant="elevation" elevation={0}>
       <Accordion style={{ textAlign: "center" }} elevation={0}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

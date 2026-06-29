@@ -1,89 +1,89 @@
-import map from "./mapper";
 import bible from "./bible-newVDC.json";
+import { map } from "./mapper";
 
 const testChapterRange = new RegExp(/^([1-4a-zA-Z-]+?) (\d+)-(\d+)$/m);
 const testChapterVerse = new RegExp(/^([1-4a-zA-Z-]+?) (\d+):(\d+)-(\d+)$/m);
 const testWholeChapter = new RegExp(/^([1-4a-zA-Z-]+) (\d+)$/m);
 const testWholeBook = new RegExp(/^([1-4a-zA-Z-]+)$/m);
 
-const bibleResponse = (book, chapters) => ({ book, chapters });
+const getBibleResponse = (book, chapters) => ({ book, chapters });
 const createChapter = (nr, verses) => ({
   number: nr,
   verses,
 });
 const createVerse = (nr, verse) => ({ number: nr, verse });
 
-const getBook = (abbrev) => {
-  const abbrevB = map(abbrev);
-  const bbook = bible.find((x) => x.abbrev === abbrevB);
-  return bbook;
+const getBook = (abbreviation) => {
+  const abbrevB = map(abbreviation);
+  const bibleBook = bible.find((x) => x.abbrev === abbrevB);
+  return bibleBook;
 };
 
 const parseChapterRange = (input) => {
   const [, book, start, end] = input.split(testChapterRange);
-  const bbook = getBook(book);
-  const bres = bibleResponse(bbook.nume, []);
+  const bibleBook = getBook(book);
+  const bibleResponse = getBibleResponse(bibleBook.name, []);
   for (let i = parseInt(start) - 1; i <= parseInt(end) - 1; i++) {
-    bres.chapters.push(
+    bibleResponse.chapters.push(
       createChapter(
         i + 1,
-        bbook.capitole[i].map((v, i) => {
+        bibleBook.chapters[i].map((v, i) => {
           return createVerse(i + 1, v);
-        })
-      )
+        }),
+      ),
     );
   }
 
-  return bres;
+  return bibleResponse;
 };
 
 const parseChapterVerse = (input) => {
-  const [, book, ichapter, start, end] = input.split(testChapterVerse);
-  const bbook = getBook(book);
-  const bres = bibleResponse(bbook.nume, []);
-  const bchapter = bbook.capitole[parseInt(ichapter) - 1];
+  const [, book, chapter, start, end] = input.split(testChapterVerse);
+  const bibleBook = getBook(book);
+  const bibleResponse = getBibleResponse(bibleBook.name, []);
+  const bibleChapter = bibleBook.chapters[parseInt(chapter) - 1];
   const verses = [];
   for (let i = parseInt(start) - 1; i <= parseInt(end) - 1; i++) {
-    verses.push(createVerse(i + 1, bchapter[i]));
+    verses.push(createVerse(i + 1, bibleChapter[i]));
   }
-  bres.chapters.push(createChapter(parseInt(ichapter), verses));
+  bibleResponse.chapters.push(createChapter(parseInt(chapter), verses));
 
-  return bres;
+  return bibleResponse;
 };
 
 const parseWholeBook = (input) => {
   const [, book] = input.split(testWholeBook);
-  const bbook = getBook(book);
+  const bibleBook = getBook(book);
 
-  const bres = bibleResponse(
-    bbook.nume,
-    bbook.capitole.map((x, i) => {
+  const bibleResponse = getBibleResponse(
+    bibleBook.name,
+    bibleBook.chapters.map((x, i) => {
       return createChapter(
         i + 1,
         x.map((y, j) => {
           return createVerse(j + 1, y);
-        })
+        }),
       );
-    })
+    }),
   );
 
-  return bres;
+  return bibleResponse;
 };
 
 const parseWholeChapter = (input) => {
   const [, book, pChapter] = input.split(testWholeChapter);
-  const bbook = getBook(book);
+  const bibleBook = getBook(book);
 
-  const bres = bibleResponse(bbook.nume, [
+  const bibleResponse = getBibleResponse(bibleBook.name, [
     createChapter(
       parseInt(pChapter),
-      bbook.capitole[parseInt(pChapter) - 1].map((x, i) => {
+      bibleBook.chapters[parseInt(pChapter) - 1].map((x, i) => {
         return createVerse(i + 1, x);
-      })
+      }),
     ),
   ]);
 
-  return bres;
+  return bibleResponse;
 };
 
 const parseText = (input) => {
@@ -107,15 +107,19 @@ const parseText = (input) => {
 };
 
 const parse = (input) => {
-  const [oldT, newT] = input.split(";").map((x) => x.trim());
+  const [oldTestamentPart, newTestamentPart] = input.split(";").map((x) => x.trim());
 
-  const parsedOldT = parseText(oldT);
-  const parsedNewT = parseText(newT);
+  const parsedOldTestament = parseText(oldTestamentPart);
+  const parsedNewTestament = parseText(newTestamentPart);
 
-  return {
-    oldT: parsedOldT,
-    newT: parsedNewT,
+  const result = {
+    oldTestament: parsedOldTestament,
+    newTestament: parsedNewTestament,
   };
+
+  console.log(result);
+
+  return result;
 };
 
 export default parse;

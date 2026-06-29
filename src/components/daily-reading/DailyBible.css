@@ -1,0 +1,204 @@
+.daily-bible-page {
+  padding: clamp(24px, 5vw, 72px) 20px 32px;
+  background: transparent;
+}
+
+.daily-bible-card {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px;
+  color: #1f2933 !important;
+  background: #ffffff !important;
+  border: 1px solid #e5e9e5;
+  border-radius: 18px !important;
+  box-shadow: 0 16px 40px rgba(35, 49, 42, 0.08) !important;
+}
+
+.daily-bible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: 28px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e8ece8;
+}
+
+.daily-bible-header__content {
+  min-width: 0;
+}
+
+.daily-bible-title {
+  margin-bottom: 4px !important;
+  color: #1f2933 !important;
+}
+
+.daily-bible-date {
+  margin-bottom: 8px !important;
+  color: #b96d26 !important;
+  font-weight: 600 !important;
+}
+
+.daily-bible-reference {
+  color: #4d5850 !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+}
+
+.daily-bible-picker {
+  min-width: 180px;
+}
+
+.daily-bible-picker .MuiInputBase-input {
+  color: #1f2933 !important;
+}
+
+.daily-bible-picker .MuiInputLabel-root,
+.daily-bible-picker .MuiIconButton-root {
+  color: #68726b !important;
+}
+
+.daily-bible-card .MuiAccordion-root {
+  margin: 0 0 14px !important;
+  overflow: hidden;
+  background: #ffffff !important;
+  border: 1px solid #e3e8e3;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+.daily-bible-card .MuiAccordion-root::before {
+  display: none;
+}
+
+.daily-bible-card .MuiAccordionSummary-root {
+  min-height: 64px;
+  padding: 0 20px;
+  background: #ffffff;
+}
+
+.daily-bible-card .MuiAccordionSummary-root.Mui-expanded {
+  min-height: 64px;
+  background: #f8faf8;
+}
+
+.daily-bible-card .MuiAccordionSummary-content {
+  margin: 12px 0 !important;
+}
+
+.daily-bible-card .MuiAccordionDetails-root {
+  padding: 8px 20px 24px;
+  background: #ffffff;
+}
+
+.daily-bible-section-title {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: #1f2933 !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+}
+
+.daily-bible-section-title span {
+  color: #68726b;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.daily-bible-passages {
+  width: 100%;
+}
+
+.daily-bible-passage {
+  width: 100%;
+  margin-bottom: 36px;
+  color: #26332b;
+}
+
+.daily-bible-passage:last-child {
+  margin-bottom: 0;
+}
+
+/* The SDK currently renders its text centered in your setup. */
+.daily-bible-passage,
+.daily-bible-passage * {
+  text-align: left !important;
+}
+
+.daily-bible-passage p {
+  max-width: 720px;
+  margin: 0 auto 1.15rem !important;
+  color: #26332b !important;
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+.daily-bible-copyright {
+  display: block;
+  margin-top: 28px !important;
+  color: #7a837c !important;
+  line-height: 1.5 !important;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .daily-bible-page {
+    padding: 16px 10px 40px;
+  }
+
+  .daily-bible-card {
+    padding: 20px 14px;
+    border-radius: 12px !important;
+  }
+
+  .daily-bible-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .daily-bible-picker {
+    width: 100%;
+  }
+
+  .daily-bible-title {
+    font-size: 1.7rem !important;
+  }
+
+  .daily-bible-card .MuiAccordionDetails-root {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .daily-bible-passage p {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+}
+
+.daily-bible-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.daily-bible-version-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.daily-bible-control-label {
+  color: #6f7a73 !important;
+  font-size: 0.75rem !important;
+}
+
+@media (max-width: 700px) {
+  .daily-bible-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+}
