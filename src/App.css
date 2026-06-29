@@ -23,6 +23,11 @@ body,
   background: #f4f5f1;
 }
 
+.app-shell,
+.app-footer {
+  background: #ffffff;
+}
+
 .app-footer__link {
   color: #ba6b2a !important;
   font-weight: 600;

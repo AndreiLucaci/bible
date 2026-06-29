@@ -3,27 +3,34 @@ import "fontsource-roboto";
 
 import * as serviceWorker from "./serviceWorker";
 
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV2";
 import App from "./App";
+import { HashRouter } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
 import { YouVersionProvider } from "@youversion/platform-react-ui";
 import { createRoot } from "react-dom/client";
+import ro from "date-fns/locale/ro";
 import theme from "./theme/light-theme";
 
 const root = createRoot(document.getElementById("root"));
+
 root.render(
   <ThemeProvider theme={theme}>
-    <YouVersionProvider appKey={"1OaqVtl7ROVDScZuNMv7yJ1pGnzalepAryAegAhfCDtFIYQr"} theme="light">
-      <div className="App">
+    <CssBaseline />
+
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ro}>
+      <YouVersionProvider appKey={process.env.REACT_APP_YVP_APP_KEY} theme="light">
         <React.StrictMode>
-          <App />
+          <HashRouter>
+            <App />
+          </HashRouter>
         </React.StrictMode>
-      </div>
-    </YouVersionProvider>
+      </YouVersionProvider>
+    </LocalizationProvider>
   </ThemeProvider>,
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

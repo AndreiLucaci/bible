@@ -1,8 +1,11 @@
 import "./App.css";
 
-import { Link, Typography } from "@material-ui/core";
+import { Link, Typography } from "@mui/material";
+import { Navigate, Route, Routes } from "react-router-dom";
 
+import { Bible } from "./components/full-bible/Bible";
 import { DailyBible } from "./components/daily-reading/DailyBible";
+import { Header } from "./layout/Header";
 import React from "react";
 
 function App() {
@@ -14,8 +17,13 @@ function App() {
 
   return (
     <div className="app-shell">
+      <Header />
       <div className="app-main">
-        <DailyBible />
+        <Routes>
+          <Route path="/daily-reading" element={<DailyBible />} />
+          <Route path="/bible" element={<Bible />} />
+          <Route path="*" element={<Navigate to="/daily-reading" replace />} />
+        </Routes>
       </div>
 
       <footer className="app-footer">

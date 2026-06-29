@@ -1,49 +1,43 @@
-import "date-fns";
 import "./DailyBible.css";
 
-import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from "@material-ui/core";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Paper, Typography } from "@mui/material";
 import { BibleTextView, BibleVersionPicker } from "@youversion/platform-react-ui";
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import React, { useEffect, useMemo, useState } from "react";
 
-import DateFnsUtils from "@date-io/date-fns";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { getPassage } from "../../bible/program";
 import { toYouVersionRequests } from "../../api/createRequest";
 import { useVersion } from "@youversion/platform-react-hooks";
 
 const DEFAULT_VERSION_ID = 126;
+const VERSION_STORAGE_KEY = "scriptum-deus:bible-version";
 
 const getInitialVersionId = () => {
-  const savedVersionId = Number(window.localStorage.getItem("scriptum-deus:bible-version"));
+  const savedVersionId = Number(window.localStorage.getItem(VERSION_STORAGE_KEY));
 
   return savedVersionId || DEFAULT_VERSION_ID;
 };
 
 export const DailyBible = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const [versionId, setVersionId] = useState(getInitialVersionId);
   const { version } = useVersion(versionId);
-
-  useEffect(() => {
-    window.localStorage.setItem("scriptum-deus:bible-version", String(versionId));
-  }, [versionId]);
-
-  const handleVersionChange = (nextVersionId) => {
-    setVersionId(nextVersionId);
-  };
 
   const [expanded, setExpanded] = useState({
     oldTestament: false,
     newTestament: false,
   });
 
-  // Keeps text mounted after its first opening, so collapsing/reopening does not fetch again.
+  // Keeps text mounted after first opening.
   const [loaded, setLoaded] = useState({
     oldTestament: false,
     newTestament: false,
   });
+
+  useEffect(() => {
+    window.localStorage.setItem(VERSION_STORAGE_KEY, String(versionId));
+  }, [versionId]);
 
   const { result, oldTestament, newTestament } = useMemo(() => {
     const result = getPassage(selectedDate);
@@ -74,6 +68,10 @@ export const DailyBible = () => {
     });
   };
 
+  const handleVersionChange = (nextVersionId) => {
+    setVersionId(nextVersionId);
+  };
+
   const handleAccordionChange = (testament) => (_, isExpanded) => {
     setExpanded((current) => ({
       ...current,
@@ -93,10 +91,6 @@ export const DailyBible = () => {
       <Paper className="daily-bible-card" elevation={0}>
         <header className="daily-bible-header">
           <div className="daily-bible-header__content">
-            <Typography component="h1" variant="h4" className="daily-bible-title">
-              Pasajul zilei
-            </Typography>
-
             <Typography className="daily-bible-date">{result.date}</Typography>
 
             <Typography className="daily-bible-reference">{result.forToday}</Typography>
@@ -106,29 +100,30 @@ export const DailyBible = () => {
             <div className="daily-bible-version-picker">
               <Typography className="daily-bible-control-label">Versiune</Typography>
 
-              <BibleVersionPicker.Root versionId={versionId} onVersionChange={setVersionId} background="light" side="bottom">
-                <BibleVersionPicker.Trigger>{version?.abbreviation || "NTR"}</BibleVersionPicker.Trigger>
+              <BibleVersionPicker.Root versionId={versionId} onVersionChange={handleVersionChange} background="light" side="bottom">
+                <BibleVersionPicker.Trigger asChild>
+                  <Button className="daily-bible-version-trigger" variant="outlined" aria-label="Alege versiunea Bibliei">
+                    {version?.localized_abbreviation || version?.abbreviation || "Alege versiunea"}
+                  </Button>
+                </BibleVersionPicker.Trigger>
 
                 <BibleVersionPicker.Content />
               </BibleVersionPicker.Root>
             </div>
 
             <div className="daily-bible-picker">
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
-                  format="dd/MM/yyyy"
-                  margin="none"
-                  id="date-picker-inline"
-                  label="Alege altă zi"
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  KeyboardButtonProps={{
-                    "aria-label": "Alege altă zi",
-                  }}
-                />
-              </MuiPickersUtilsProvider>
+              <DatePicker
+                label="Alege altă zi"
+                value={selectedDate}
+                onChange={handleDateChange}
+                format="dd/MM/yyyy"
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    margin: "none",
+                  },
+                }}
+              />
             </div>
           </div>
         </header>
@@ -145,9 +140,8 @@ export const DailyBible = () => {
             <div className="daily-bible-passages">
               {loaded.oldTestament &&
                 oldTestament?.passages.map(({ passageId }) => (
-                  <div className="daily-bible-passage" key={passageId}>
+                  <div className="daily-bible-passage" key={`${passageId}-${versionId}`}>
                     <BibleTextView
-                      key={`${passageId}-${versionId}`}
                       reference={passageId}
                       versionId={versionId}
                       fontFamily="serif"
@@ -174,9 +168,8 @@ export const DailyBible = () => {
             <div className="daily-bible-passages">
               {loaded.newTestament &&
                 newTestament?.passages.map(({ passageId }) => (
-                  <div className="daily-bible-passage" key={passageId}>
+                  <div className="daily-bible-passage" key={`${passageId}-${versionId}`}>
                     <BibleTextView
-                      key={`${passageId}-${versionId}`}
                       reference={passageId}
                       versionId={versionId}
                       fontFamily="serif"
