@@ -45,6 +45,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  width: 180px;
   min-width: 180px;
   text-align: center;
 }
@@ -55,16 +56,56 @@
 }
 
 .bible-reader__version-trigger {
-  width: 180px;
-  height: 56px;
+  display: inline-flex !important;
+  align-items: center !important;
   justify-content: flex-start !important;
+  box-sizing: border-box !important;
+  width: 180px;
+  min-width: 180px;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 16px !important;
   color: #1f2933 !important;
-  border-color: #cbd2cc !important;
-  background: #ffffff !important;
+  font-size: 1rem !important;
+  line-height: 1.4375em !important;
+  text-align: left !important;
   text-transform: none !important;
+  background: #ffffff !important;
+  border-color: #cbd2cc !important;
 }
 
 .bible-reader__version-trigger:hover {
+  border-color: #b96d26 !important;
+  background: #fffaf5 !important;
+}
+
+/*
+  BibleChapterPicker.Trigger renders a button directly inside
+  .bible-reader__chapter-picker.
+*/
+.bible-reader__chapter-picker > button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  box-sizing: border-box !important;
+  width: 180px !important;
+  min-width: 180px !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  padding: 0 16px !important;
+  color: #1f2933 !important;
+  font: inherit !important;
+  font-size: 1rem !important;
+  line-height: 1.4375em !important;
+  text-align: left !important;
+  text-transform: none !important;
+  background: #ffffff !important;
+  border: 1px solid #cbd2cc !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+.bible-reader__chapter-picker > button:hover {
   border-color: #b96d26 !important;
   background: #fffaf5 !important;
 }
@@ -102,6 +143,14 @@
   text-align: center;
 }
 
+/* Allow normal browser selection within Bible text. */
+.bible-reader,
+.bible-reader * {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  user-select: text !important;
+}
+
 @media (max-width: 700px) {
   .bible-page {
     padding: 16px 10px 40px;
@@ -115,19 +164,14 @@
 
   .bible-reader__version-picker,
   .bible-reader__chapter-picker,
-  .bible-reader__version-trigger {
-    width: 100%;
+  .bible-reader__version-trigger,
+  .bible-reader__chapter-picker > button {
+    width: 100% !important;
+    min-width: 0 !important;
   }
 
   .bible-reader__passage > * {
     width: 100% !important;
     max-width: none !important;
   }
-}
-
-.bible-reader,
-.bible-reader * {
-  -webkit-user-select: text !important;
-  -moz-user-select: text !important;
-  user-select: text !important;
 }
