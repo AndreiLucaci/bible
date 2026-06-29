@@ -1,48 +1,48 @@
-import React from "react";
-import { Typography, Link, Paper } from "@material-ui/core";
-
-import { Bible } from "./components/bible/Bible";
-
 import "./App.css";
 
-function App() {
-  const getYearsRange = (year) => {
-    const yearNow = new Date().getFullYear();
-    const years = [...new Set([year, yearNow])];
+import { Link, Typography } from "@mui/material";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-    if (years.length === 1) return years[0];
-    else return years[0] + " - " + years[years.length - 1];
+import { Bible } from "./components/full-bible/Bible";
+import { DailyBible } from "./components/daily-reading/DailyBible";
+import { Header } from "./layout/Header";
+import React from "react";
+
+function App() {
+  const getYearsRange = (firstYear) => {
+    const currentYear = new Date().getFullYear();
+
+    return firstYear === currentYear ? firstYear : `${firstYear} - ${currentYear}`;
   };
+
   return (
-    <>
-      <div style={{ marginBottom: "100px" }}>
-        <Bible />
+    <div className="app-shell">
+      <Header />
+      <div className="app-main">
+        <Routes>
+          <Route path="/daily-reading" element={<DailyBible />} />
+          <Route path="/bible" element={<Bible />} />
+          <Route path="*" element={<Navigate to="/daily-reading" replace />} />
+        </Routes>
       </div>
-      <Paper className="footer-down" elevation={0}>
-        <div style={{ width: "240px", marginLeft: -35 }}>
-          <Typography variant="subtitle2">
-            by:{" "}
-            <Link
-              href="https://github.com/AndreiLucaci"
-              className="orange"
-              color="textSecondary"
-            >
-              AndreiLucaci
-            </Link>
-            , {getYearsRange(2020)}
-            <Link
-              href="https://scriptumdeus.com"
-              className="orange"
-              color="textSecondary"
-            >
-              {" "}
-              Scriptum Deus{" "}
-            </Link>
-            © All rights reserved.
-          </Typography>
-        </div>
-      </Paper>
-    </>
+
+      <footer className="app-footer">
+        <Typography variant="subtitle2">
+          by:{" "}
+          <Link href="https://github.com/AndreiLucaci" className="app-footer__link" color="inherit">
+            AndreiLucaci
+          </Link>
+          , {getYearsRange(2020)}
+        </Typography>
+
+        <Typography variant="subtitle2">
+          <Link href="https://scriptumdeus.com" className="app-footer__link" color="inherit">
+            Scriptum Deus
+          </Link>{" "}
+          © All rights reserved.
+        </Typography>
+      </footer>
+    </div>
   );
 }
 

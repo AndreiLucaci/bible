@@ -415,8 +415,8 @@ const fday = {
   6: "Sambata",
 };
 
-export const passage = (date = undefined) => {
-  const currentDate = date || new Date();
+export const getPassage = (inputDate = undefined) => {
+  const currentDate = inputDate || new Date();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
   const wday = currentDate.getDay();
@@ -425,9 +425,18 @@ export const passage = (date = undefined) => {
 
   return {
     forToday,
+    date: `${fday[wday]} (${day} ${fmonth[month]})`,
+  };
+};
+
+export const passage = (inputDate = undefined) => {
+  const { forToday, date } = getPassage(inputDate);
+
+  return {
+    forToday,
     display: {
       static: "Pasajul zile pentru:",
-      date: `${fday[wday]} (${day} ${fmonth[month]})`,
+      date,
     },
   };
 };

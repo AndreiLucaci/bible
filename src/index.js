@@ -1,43 +1,36 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
-import { Container } from "@material-ui/core";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import * as serviceWorker from "./serviceWorker";
 import "fontsource-roboto";
 
-const theme = createMuiTheme({
-  palette: {
-    background: {
-      paper: "#2a312a",
-    },
-    primary: {
-      main: "#f4900e",
-      contrastText: "#28382b",
-    },
-    text: {
-      primary: "#f6f6f6",
-      secondary: "#f1802d",
-      dark: "#123740",
-    },
-  },
-});
+import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV2";
+import App from "./App";
+import { HashRouter } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import React from "react";
+import { YouVersionProvider } from "@youversion/platform-react-ui";
+import { createRoot } from "react-dom/client";
+import ro from "date-fns/locale/ro";
+import theme from "./theme/light-theme";
+
+const root = createRoot(document.getElementById("root"));
+
+root.render(
   <ThemeProvider theme={theme}>
-    <Container maxWidth="lg">
-      <div className="App">
+    <CssBaseline />
+
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ro}>
+      <YouVersionProvider appKey={process.env.REACT_APP_YVP_APP_KEY} theme="light">
         <React.StrictMode>
-          <App />
+          <HashRouter>
+            <App />
+          </HashRouter>
         </React.StrictMode>
-      </div>
-    </Container>
+      </YouVersionProvider>
+    </LocalizationProvider>
   </ThemeProvider>,
-  document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
