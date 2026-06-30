@@ -124,6 +124,15 @@
   margin-left: auto !important;
 }
 
+.bible-reader__passage p {
+  max-width: none !important;
+  margin: 0 0 1.15rem !important;
+  color: #26332b !important;
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+
 .bible-reader__passage,
 .bible-reader__passage * {
   text-align: left !important;
@@ -156,6 +165,10 @@
     padding: 16px 10px 40px;
   }
 
+  .bible-reader__passage{
+    padding: 20px 14px;
+  }
+
   .bible-reader__controls {
     flex-direction: column;
     align-items: stretch;
@@ -168,6 +181,11 @@
   .bible-reader__chapter-picker > button {
     width: 100% !important;
     min-width: 0 !important;
+  }
+
+  .bible-reader__section {
+    padding-right: 14px;
+    padding-left: 14px;
   }
 
   .bible-reader__passage > * {
