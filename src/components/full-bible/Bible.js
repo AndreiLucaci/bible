@@ -98,26 +98,28 @@ export const Bible = () => {
           </div>
         </header>
 
-        {passageId ? (
-          <section className="bible-reader__passage" aria-label={`${book} ${chapter}`}>
-            <BibleTextView
-              key={`${versionId}-${passageId}`}
-              reference={passageId}
-              versionId={versionId}
-              fontFamily="serif"
-              fontSize={19}
-              lineHeight={1.8}
-              showVerseNumbers
-              renderNotes
-            />
-          </section>
-        ) : (
-          <div className="bible-reader__empty">Selectează o carte și un capitol pentru a începe citirea.</div>
-        )}
+        <div className="bible-reader__section">
+          {passageId ? (
+            <section className="bible-reader__passage" aria-label={`${book} ${chapter}`}>
+              <BibleTextView
+                key={`${versionId}-${passageId}`}
+                reference={passageId}
+                versionId={versionId}
+                fontFamily="serif"
+                fontSize={19}
+                lineHeight={1.8}
+                showVerseNumbers
+                renderNotes
+              />
+            </section>
+          ) : (
+            <div className="bible-reader__empty">Selectează o carte și un capitol pentru a începe citirea.</div>
+          )}
 
-        <Typography className="bible-reader__copyright" variant="caption">
-          {version?.copyright}
-        </Typography>
+          <Typography className="bible-reader__copyright" variant="caption">
+            {version?.copyright}
+          </Typography>
+        </div>
       </section>
     </main>
   );
