@@ -154,6 +154,19 @@
   text-align: center !important;
 }
 
+.daily-bible-chapter-title {
+  display: block;
+  margin: 0 !important;
+  color: #b96d26 !important;
+  font-family: "Inter", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.015em;
+  line-height: 1.25;
+  text-align: left !important;
+  text-transform: none;
+}
+
 .daily-bible-section-title span {
   color: #68726b;
   font-size: 0.9rem;
