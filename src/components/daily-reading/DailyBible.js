@@ -139,8 +139,11 @@ export const DailyBible = () => {
           <AccordionDetails>
             <div className="daily-bible-passages">
               {loaded.oldTestament &&
-                oldTestament?.passages.map(({ passageId }) => (
+                oldTestament?.passages.map(({ passageId, chapter }) => (
                   <div className="daily-bible-passage" key={`${passageId}-${versionId}`}>
+                    <Typography component="div" className="daily-bible-chapter-title">
+                      Capitolul {chapter}
+                    </Typography>
                     <BibleTextView
                       reference={passageId}
                       versionId={versionId}
@@ -167,8 +170,11 @@ export const DailyBible = () => {
           <AccordionDetails>
             <div className="daily-bible-passages">
               {loaded.newTestament &&
-                newTestament?.passages.map(({ passageId }) => (
+                newTestament?.passages.map(({ passageId, chapter }) => (
                   <div className="daily-bible-passage" key={`${passageId}-${versionId}`}>
+                    <Typography component="div" className="daily-bible-chapter-title">
+                      Capitolul {chapter}
+                    </Typography>
                     <BibleTextView
                       reference={passageId}
                       versionId={versionId}
