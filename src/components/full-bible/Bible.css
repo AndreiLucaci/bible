@@ -160,6 +160,19 @@
   user-select: text !important;
 }
 
+.bible-reader-chapter-title {
+  display: block;
+  margin: 0 !important;
+  color: #b96d26 !important;
+  font-family: "Inter", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.015em;
+  line-height: 1.25;
+  text-align: left !important;
+  text-transform: none;
+}
+
 @media (max-width: 700px) {
   .bible-page {
     padding: 16px 10px 40px;
@@ -191,5 +204,69 @@
   .bible-reader__passage > * {
     width: 100% !important;
     max-width: none !important;
+  }
+}
+
+
+.bible-reader__passage {
+  touch-action: pan-y;
+}
+
+.bible-reader__chapter-nav {
+  position: fixed;
+  top: 50%;
+  z-index: 20;
+  display: grid;
+  width: 76px;
+  height: 108px;
+  padding: 0;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--accent-color, #bf6b1f);
+  cursor: pointer;
+  opacity: 0.72;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.bible-reader__chapter-nav svg {
+  width: 56px;
+  height: 56px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.bible-reader__chapter-nav:hover:not(:disabled) {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.bible-reader__chapter-nav:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 6px;
+  border-radius: 8px;
+  opacity: 1;
+}
+
+.bible-reader__chapter-nav:disabled {
+  cursor: default;
+  opacity: 0.16;
+}
+
+.bible-reader__chapter-nav--previous {
+  left: clamp(18px, 14vw, 260px);
+}
+
+.bible-reader__chapter-nav--next {
+  right: clamp(18px, 14vw, 260px);
+}
+
+@media (max-width: 900px) {
+  .bible-reader__chapter-nav {
+    display: none;
   }
 }
