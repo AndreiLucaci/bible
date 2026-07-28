@@ -72,3 +72,21 @@ const findBook = (name) => Object.entries(mapper).find(([, [romanianName]]) => r
 export const map = (name) => findBook(name)?.[0];
 
 export const mapYouVersion = (name) => findBook(name)?.[1]?.[1];
+
+export const localizeReference = (reference, translate) =>
+  reference
+    .split(";")
+    .map((part) => {
+      const trimmedPart = part.trim();
+      const book = Object.values(mapper).find(
+        ([romanianName]) => trimmedPart === romanianName || trimmedPart.startsWith(`${romanianName} `),
+      );
+
+      if (!book) {
+        return trimmedPart;
+      }
+
+      const [romanianName, usfmCode] = book;
+      return `${translate(`dailyBible.reading.books.${usfmCode}`)}${trimmedPart.slice(romanianName.length)}`;
+    })
+    .join("; ");

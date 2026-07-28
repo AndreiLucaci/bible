@@ -4,6 +4,7 @@ import { BibleChapterPicker, BibleTextView, BibleVersionPicker } from "@youversi
 import { Button, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useBooks, useVersion } from "@youversion/platform-react-hooks";
+import { useTranslation } from "react-i18next";
 
 const DEFAULT_VERSION_ID = 126;
 
@@ -64,6 +65,7 @@ const getAdjacentChapter = (books, currentBookId, currentChapterId, direction) =
 };
 
 export const Bible = () => {
+  const { t } = useTranslation();
   const [versionId, setVersionId] = useState(getInitialVersionId);
   const [book, setBook] = useState(getInitialBook);
   const [chapter, setChapter] = useState(getInitialChapter);
@@ -206,12 +208,16 @@ export const Bible = () => {
         <header className="bible-reader__header">
           <div className="bible-reader__controls">
             <div className="bible-reader__version-picker">
-              <Typography className="bible-reader__control-label">Versiune</Typography>
+              <Typography className="bible-reader__control-label">{t("bible.controls.version")}</Typography>
 
               <BibleVersionPicker.Root versionId={versionId} onVersionChange={handleVersionChange} background="light" side="bottom">
                 <BibleVersionPicker.Trigger asChild>
-                  <Button className="bible-reader__version-trigger" variant="outlined" aria-label="Alege versiunea Bibliei">
-                    {version?.localized_abbreviation || version?.abbreviation || "Alege versiunea"}
+                  <Button
+                    className="bible-reader__version-trigger"
+                    variant="outlined"
+                    aria-label={t("bible.controls.chooseVersion")}
+                  >
+                    {version?.localized_abbreviation || version?.abbreviation || t("bible.controls.chooseVersionFallback")}
                   </Button>
                 </BibleVersionPicker.Trigger>
 
@@ -220,7 +226,7 @@ export const Bible = () => {
             </div>
 
             <div className="bible-reader__chapter-picker">
-              <Typography className="bible-reader__control-label">Text</Typography>
+              <Typography className="bible-reader__control-label">{t("bible.controls.text")}</Typography>
 
               <BibleChapterPicker.Root
                 book={book}
@@ -242,7 +248,7 @@ export const Bible = () => {
               <section
                 ref={passageRef}
                 className="bible-reader__passage"
-                aria-label={`${book} ${chapter}`}
+                aria-label={t("bible.reader.passageLabel", { book, chapter })}
                 onPointerDown={handlePointerDown}
                 onPointerUp={handlePointerUp}
                 onPointerCancel={() => {
@@ -250,7 +256,7 @@ export const Bible = () => {
                 }}
               >
                 <Typography component="div" className="bible-reader-chapter-title">
-                  Capitolul {chapter}
+                  {t("bible.reader.chapter", { chapter })}
                 </Typography>
 
                 <BibleTextView
@@ -270,8 +276,8 @@ export const Bible = () => {
                   <button
                     type="button"
                     className="bible-reader__chapter-nav bible-reader__chapter-nav--previous"
-                    aria-label="Mergi la capitolul precedent"
-                    title="Capitolul precedent"
+                    aria-label={t("bible.reader.previousChapter")}
+                    title={t("bible.reader.previousChapterTitle")}
                     disabled={!chapterNavigation.previous}
                     onClick={() => goToChapter(chapterNavigation.previous)}
                   >
@@ -283,8 +289,8 @@ export const Bible = () => {
                   <button
                     type="button"
                     className="bible-reader__chapter-nav bible-reader__chapter-nav--next"
-                    aria-label="Mergi la capitolul următor"
-                    title="Capitolul următor"
+                    aria-label={t("bible.reader.nextChapter")}
+                    title={t("bible.reader.nextChapterTitle")}
                     disabled={!chapterNavigation.next}
                     onClick={() => goToChapter(chapterNavigation.next)}
                   >
@@ -296,7 +302,7 @@ export const Bible = () => {
               )}
             </>
           ) : (
-            <div className="bible-reader__empty">Selectează o carte și un capitol pentru a începe citirea.</div>
+            <div className="bible-reader__empty">{t("bible.reader.empty")}</div>
           )}
 
           <Typography className="bible-reader__copyright" variant="caption">

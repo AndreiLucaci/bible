@@ -1,0 +1,55 @@
+{
+  "app": { "footer": { "by": "par :", "rights": "Tous droits réservés." } },
+  "header": {
+    "nav": {
+      "ariaLabel": "Navigation principale",
+      "dailyReading": { "title": "Lecture du jour" },
+      "bible": { "title": "Bible" }
+    },
+    "actions": { "readToday": "Lire aujourd’hui" },
+    "mobileMenu": { "open": "Ouvrir le menu", "close": "Fermer le menu" },
+    "language": {
+      "label": "Langue",
+      "options": { "en": "Anglais", "ro": "Roumain", "de": "Allemand", "fr": "Français", "it": "Italien", "es": "Espagnol" }
+    }
+  },
+  "dailyBible": {
+    "reading": {
+      "books": {
+        "GEN": "Genèse", "EXO": "Exode", "LEV": "Lévitique", "NUM": "Nombres", "DEU": "Deutéronome",
+        "JOS": "Josué", "JDG": "Juges", "RUT": "Ruth", "1SA": "1 Samuel", "2SA": "2 Samuel",
+        "1KI": "1 Rois", "2KI": "2 Rois", "1CH": "1 Chroniques", "2CH": "2 Chroniques", "EZR": "Esdras",
+        "NEH": "Néhémie", "EST": "Esther", "JOB": "Job", "PSA": "Psaumes", "PRO": "Proverbes",
+        "ECC": "Ecclésiaste", "SNG": "Cantique des Cantiques", "ISA": "Ésaïe", "JER": "Jérémie",
+        "LAM": "Lamentations", "EZK": "Ézéchiel", "DAN": "Daniel", "HOS": "Osée", "JOL": "Joël",
+        "AMO": "Amos", "OBA": "Abdias", "JON": "Jonas", "MIC": "Michée", "NAM": "Nahum",
+        "HAB": "Habacuc", "ZEP": "Sophonie", "HAG": "Aggée", "ZEC": "Zacharie", "MAL": "Malachie",
+        "MAT": "Matthieu", "MRK": "Marc", "LUK": "Luc", "JHN": "Jean", "ACT": "Actes",
+        "ROM": "Romains", "1CO": "1 Corinthiens", "2CO": "2 Corinthiens", "GAL": "Galates",
+        "EPH": "Éphésiens", "PHP": "Philippiens", "COL": "Colossiens", "1TH": "1 Thessaloniciens",
+        "2TH": "2 Thessaloniciens", "1TI": "1 Timothée", "2TI": "2 Timothée", "TIT": "Tite",
+        "PHM": "Philémon", "HEB": "Hébreux", "JAS": "Jacques", "1PE": "1 Pierre", "2PE": "2 Pierre",
+        "1JN": "1 Jean", "2JN": "2 Jean", "3JN": "3 Jean", "JUD": "Jude", "REV": "Apocalypse"
+      }
+    },
+    "controls": {
+      "version": "Version", "chooseVersion": "Choisir la version de la Bible",
+      "chooseVersionFallback": "Choisir une version", "chooseDate": "Choisir un autre jour"
+    },
+    "sections": {
+      "oldTestament": "Ancien Testament", "newTestament": "Nouveau Testament", "chapter": "Chapitre {{chapter}}"
+    }
+  },
+  "bible": {
+    "controls": {
+      "version": "Version", "text": "Texte", "chooseVersion": "Choisir la version de la Bible",
+      "chooseVersionFallback": "Choisir une version"
+    },
+    "reader": {
+      "chapter": "Chapitre {{chapter}}", "passageLabel": "{{book}} {{chapter}}",
+      "empty": "Sélectionnez un livre et un chapitre pour commencer la lecture.",
+      "previousChapter": "Aller au chapitre précédent", "previousChapterTitle": "Chapitre précédent",
+      "nextChapter": "Aller au chapitre suivant", "nextChapterTitle": "Chapitre suivant"
+    }
+  }
+}
