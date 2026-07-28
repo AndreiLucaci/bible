@@ -68,7 +68,32 @@
 }
 
 .site-header__desktop-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-left: auto;
+}
+
+.site-header__language-button {
+  min-width: 0 !important;
+  padding: 6px 8px !important;
+  color: #667169 !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+}
+
+.site-header__language-button:hover {
+  color: #1f2933 !important;
+  background: #f4f6f2 !important;
+}
+
+.site-header__language-button .MuiButton-startIcon {
+  margin-right: 4px;
+}
+
+.site-header__language-button .MuiSvgIcon-root {
+  font-size: 1.1rem;
 }
 
 .site-header__reading-button {
@@ -102,11 +127,17 @@
   }
 
   .site-header__desktop-actions {
-    display: none;
+    gap: 0;
+    margin-left: auto;
+  }
+
+  .site-header__reading-button {
+    display: none !important;
   }
 
   .site-header__mobile-toggle {
     display: inline-flex !important;
+    margin-left: 8px !important;
   }
 
   .site-header__nav {

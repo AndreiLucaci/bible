@@ -7,8 +7,11 @@ import { Bible } from "./components/full-bible/Bible";
 import { DailyBible } from "./components/daily-reading/DailyBible";
 import { Header } from "./layout/Header";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t } = useTranslation();
+
   const getYearsRange = (firstYear) => {
     const currentYear = new Date().getFullYear();
 
@@ -28,7 +31,7 @@ function App() {
 
       <footer className="app-footer">
         <Typography variant="subtitle2">
-          by:{" "}
+          {t("app.footer.by")}{" "}
           <Link href="https://github.com/AndreiLucaci" className="app-footer__link" color="inherit">
             AndreiLucaci
           </Link>
@@ -39,7 +42,7 @@ function App() {
           <Link href="https://scriptumdeus.com" className="app-footer__link" color="inherit">
             Scriptum Deus
           </Link>{" "}
-          © All rights reserved.
+          © {t("app.footer.rights")}
         </Typography>
       </footer>
     </div>

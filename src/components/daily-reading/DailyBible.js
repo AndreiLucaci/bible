@@ -7,7 +7,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { getPassage } from "../../bible/program";
+import { localizeReference } from "../../bible/mapper";
 import { toYouVersionRequests } from "../../api/createRequest";
+import { useTranslation } from "react-i18next";
 import { useVersion } from "@youversion/platform-react-hooks";
 
 const DEFAULT_VERSION_ID = 126;
@@ -20,6 +22,7 @@ const getInitialVersionId = () => {
 };
 
 export const DailyBible = () => {
+  const { i18n, t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [versionId, setVersionId] = useState(getInitialVersionId);
   const { version } = useVersion(versionId);
@@ -40,7 +43,7 @@ export const DailyBible = () => {
   }, [versionId]);
 
   const { result, oldTestament, newTestament } = useMemo(() => {
-    const result = getPassage(selectedDate);
+    const result = getPassage(selectedDate, i18n.resolvedLanguage);
     const [oldTestament, newTestament] = toYouVersionRequests(result.forToday);
 
     return {
@@ -48,7 +51,7 @@ export const DailyBible = () => {
       oldTestament,
       newTestament,
     };
-  }, [selectedDate]);
+  }, [i18n.resolvedLanguage, selectedDate]);
 
   const handleDateChange = (date) => {
     if (!date || Number.isNaN(date.getTime())) {
@@ -93,17 +96,21 @@ export const DailyBible = () => {
           <div className="daily-bible-header__content">
             <Typography className="daily-bible-date">{result.date}</Typography>
 
-            <Typography className="daily-bible-reference">{result.forToday}</Typography>
+            <Typography className="daily-bible-reference">{localizeReference(result.forToday, t)}</Typography>
           </div>
 
           <div className="daily-bible-controls">
             <div className="daily-bible-version-picker">
-              <Typography className="daily-bible-control-label">Versiune</Typography>
+              <Typography className="daily-bible-control-label">{t("dailyBible.controls.version")}</Typography>
 
               <BibleVersionPicker.Root versionId={versionId} onVersionChange={handleVersionChange} background="light" side="bottom">
                 <BibleVersionPicker.Trigger asChild>
-                  <Button className="daily-bible-version-trigger" variant="outlined" aria-label="Alege versiunea Bibliei">
-                    {version?.localized_abbreviation || version?.abbreviation || "Alege versiunea"}
+                  <Button
+                    className="daily-bible-version-trigger"
+                    variant="outlined"
+                    aria-label={t("dailyBible.controls.chooseVersion")}
+                  >
+                    {version?.localized_abbreviation || version?.abbreviation || t("dailyBible.controls.chooseVersionFallback")}
                   </Button>
                 </BibleVersionPicker.Trigger>
 
@@ -113,7 +120,7 @@ export const DailyBible = () => {
 
             <div className="daily-bible-picker">
               <DatePicker
-                label="Alege altă zi"
+                label={t("dailyBible.controls.chooseDate")}
                 value={selectedDate}
                 onChange={handleDateChange}
                 format="dd/MM/yyyy"
@@ -131,7 +138,7 @@ export const DailyBible = () => {
         <Accordion elevation={0} expanded={expanded.oldTestament} onChange={handleAccordionChange("oldTestament")}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className="daily-bible-section-title">
-              Vechiul Testament
+              {t("dailyBible.sections.oldTestament")}
               <span>{oldTestament?.reference}</span>
             </Typography>
           </AccordionSummary>
@@ -142,7 +149,7 @@ export const DailyBible = () => {
                 oldTestament?.passages.map(({ passageId, chapter }) => (
                   <div className="daily-bible-passage" key={`${passageId}-${versionId}`}>
                     <Typography component="div" className="daily-bible-chapter-title">
-                      Capitolul {chapter}
+                      {t("dailyBible.sections.chapter", { chapter })}
                     </Typography>
                     <BibleTextView
                       reference={passageId}
@@ -162,7 +169,7 @@ export const DailyBible = () => {
         <Accordion elevation={0} expanded={expanded.newTestament} onChange={handleAccordionChange("newTestament")}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className="daily-bible-section-title">
-              Noul Testament
+              {t("dailyBible.sections.newTestament")}
               <span>{newTestament?.reference}</span>
             </Typography>
           </AccordionSummary>
@@ -173,7 +180,7 @@ export const DailyBible = () => {
                 newTestament?.passages.map(({ passageId, chapter }) => (
                   <div className="daily-bible-passage" key={`${passageId}-${versionId}`}>
                     <Typography component="div" className="daily-bible-chapter-title">
-                      Capitolul {chapter}
+                      {t("dailyBible.sections.chapter", { chapter })}
                     </Typography>
                     <BibleTextView
                       reference={passageId}

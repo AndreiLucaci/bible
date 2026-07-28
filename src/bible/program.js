@@ -391,41 +391,28 @@ const jsn = {
   },
 };
 
-const fmonth = {
-  1: "Ianuarie",
-  2: "Februarie",
-  3: "Martie",
-  4: "Aprilie",
-  5: "Mai",
-  6: "Iunie",
-  7: "Iulie",
-  8: "August",
-  9: "Septembrie",
-  10: "Octombrie",
-  11: "Noiembrie",
-  12: "Decembrie",
-};
-const fday = {
-  0: "Duminica",
-  1: "Luni",
-  2: "Marti",
-  3: "Miercuri",
-  4: "Joi",
-  5: "Vineri",
-  6: "Sambata",
-};
-
-export const getPassage = (inputDate = undefined) => {
+export const getPassage = (inputDate = undefined, language = "en") => {
   const currentDate = inputDate || new Date();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
-  const wday = currentDate.getDay();
 
   const forToday = jsn[month][day];
+  const locales = {
+    de: "de-DE",
+    en: "en-US",
+    es: "es-ES",
+    fr: "fr-FR",
+    it: "it-IT",
+    ro: "ro-RO",
+  };
+  const locale = locales[language] || locales.en;
+  const formattedWeekday = new Intl.DateTimeFormat(locale, { weekday: "long" }).format(currentDate);
+  const weekday = formattedWeekday.charAt(0).toLocaleUpperCase(locale) + formattedWeekday.slice(1);
+  const calendarDate = new Intl.DateTimeFormat(locale, { day: "numeric", month: "long" }).format(currentDate);
 
   return {
     forToday,
-    date: `${fday[wday]} (${day} ${fmonth[month]})`,
+    date: `${weekday} (${calendarDate})`,
   };
 };
 
