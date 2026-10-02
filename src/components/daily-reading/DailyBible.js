@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { getPassage } from "../../bible/program-improved";
+import { getPassage } from "../../bible/program";
 import { localizeReference } from "../../bible/mapper";
 import { toYouVersionRequests } from "../../api/createRequest";
 import { useTranslation } from "react-i18next";
