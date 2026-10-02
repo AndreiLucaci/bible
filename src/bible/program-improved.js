@@ -390,3 +390,40 @@ const jsn = {
     31: "Maleahi 1-4; Apocalipsa 22",
   },
 };
+
+export const getPassage = (inputDate = undefined, language = "en") => {
+  const currentDate = inputDate || new Date();
+  const month = currentDate.getMonth() + 1;
+  const day = currentDate.getDate();
+
+  const forToday = jsn[month][day];
+  const locales = {
+    de: "de-DE",
+    en: "en-US",
+    es: "es-ES",
+    fr: "fr-FR",
+    it: "it-IT",
+    ro: "ro-RO",
+  };
+  const locale = locales[language] || locales.en;
+  const formattedWeekday = new Intl.DateTimeFormat(locale, { weekday: "long" }).format(currentDate);
+  const weekday = formattedWeekday.charAt(0).toLocaleUpperCase(locale) + formattedWeekday.slice(1);
+  const calendarDate = new Intl.DateTimeFormat(locale, { day: "numeric", month: "long" }).format(currentDate);
+
+  return {
+    forToday,
+    date: `${weekday} (${calendarDate})`,
+  };
+};
+
+export const passage = (inputDate = undefined) => {
+  const { forToday, date } = getPassage(inputDate);
+
+  return {
+    forToday,
+    display: {
+      static: "Pasajul zile pentru:",
+      date,
+    },
+  };
+};
