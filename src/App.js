@@ -32,7 +32,7 @@ function App() {
       <footer className="app-footer">
         <Typography variant="subtitle2">
           {t("app.footer.by")}{" "}
-          <Link href="https://github.com/AndreiLucaci" className="app-footer__link" color="inherit">
+          <Link href="https://andreilucaci.ro/" className="app-footer__link" color="inherit">
             AndreiLucaci
           </Link>
           , {getYearsRange(2020)}
